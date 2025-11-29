@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+# Ignore attributes.properties files
+src/test/java/com/dev/tasks/resources/application.properties
+src/main/resources/application.properties
