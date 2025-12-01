@@ -3,6 +3,7 @@ package com.dev.tasks.services.impl;
 import com.dev.tasks.domain.entities.TaskList;
 import com.dev.tasks.repositories.TaskListRepository;
 import com.dev.tasks.services.TaskListService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

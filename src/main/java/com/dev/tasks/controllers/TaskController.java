@@ -38,11 +38,16 @@ public class TaskController {
         return taskService.getTask(task_list_id,task_id).map(taskMapper::toDto);
     }
 
-    @GetMapping(path="/{task_id}")
+    @PutMapping(path="/{task_id}")
     public TaskDto updateTask(@PathVariable("task_list_id") UUID task_list_id,@PathVariable("task_id") UUID task_id,@RequestBody TaskDto taskDto)
     {
         Task task=taskService.updateTask(task_list_id,task_id,taskMapper.fromDto(taskDto));
         return taskMapper.toDto(task);
     }
 
+    @DeleteMapping(path="/{task_id}")
+    public void deleteTask(@PathVariable("task_list_id") UUID task_list_id,@PathVariable("task_id") UUID task_id)
+    {
+        taskService.deleteTask(task_list_id,task_id);
+    }
 }

@@ -9,6 +9,7 @@ import com.dev.tasks.repositories.TaskListRepository;
 import com.dev.tasks.repositories.TaskRepository;
 import com.dev.tasks.services.TaskListService;
 import com.dev.tasks.services.TaskService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -72,18 +73,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task updateTask(UUID id, UUID taskId, Task task) {
-        if(id==null || taskId==null || task==null){
-            throw new IllegalArgumentException("Task id or task id is null");
-        }
-        if(null==taskId){
-            throw new IllegalArgumentException("Task id is null");
-        }
-        if(null==id){
-            throw new IllegalArgumentException("Task id is null");
-        }
-        if(task.getTitle()==null || task.getTitle().isEmpty()){
-            throw new IllegalArgumentException("Task title is empty");
-        }
+
         if(null==task.getId())
         {
             throw new IllegalArgumentException("Task id is null");
@@ -105,9 +95,13 @@ public class TaskServiceImpl implements TaskService {
         Existingtask.setDueDate(task.getDueDate());
         Existingtask.setPriority(task.getPriority());
         Existingtask.setStatus(task.getStatus());
-        Existingtask.setTaskList(task.getTaskList());
         Existingtask.setUpdated(LocalDateTime.now());
         return taskRepository.save(Existingtask);
+    }
+    @Transactional
+    @Override
+    public void deleteTask(UUID id, UUID taskId) {
+        taskRepository.deleteByTaskListIdAndId(id,taskId);
     }
 
 
